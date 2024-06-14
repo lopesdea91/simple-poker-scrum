@@ -1,9 +1,16 @@
-import { createBrowserRouter } from "react-router-dom";
-import HomePage from "../pages/HomePage/page";
+import { RouteObject } from "react-router-dom";
 
-export const routeList = createBrowserRouter([
+/* pages */
+import HomePage from "../pages/HomePage/page";
+import RoomPage from "pages/RoomPage/page";
+
+export const routeList: RouteObject[] = [
   {
     path: "/",
     element: <HomePage />,
   },
-]);
+  {
+    path: 'room/:id',
+    element: <RoomPage />
+  }
+]
