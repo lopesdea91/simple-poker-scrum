@@ -47,14 +47,14 @@ export default function LayoutSetup() {
           throw new Error('unauthenticated')
         }
 
+        if(pathname === '/') navigate('/rooms')
+
         store.setData({
           auth: { logged: true },
           user: userData!,
           initialApp: false,
           loading: false
         })
-
-        // navigate(pathname === '/' ? '/rooms' : '/')
 
       } catch (error) {
         console.log('... authStateWithGoogle error', (error as Error).message);
