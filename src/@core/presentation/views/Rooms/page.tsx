@@ -28,7 +28,7 @@ export default function RoomsPage() {
     return [
       {
         title: 'Minhas Salas',
-        showButtonAdd: true,
+        showButtonAdd: myRooms.length < 3,
         messageLoading: 'Buscando salas ...',
         messageEmptyRooms: !myRooms.length ? 'Você não possui salas ainda' : null,
         rooms: myRooms
