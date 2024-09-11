@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+
+import './@core/assets/css/App.scss';
+
+import { Header } from './@core/presentation/layout/Header';
+import { Main } from './@core/presentation/layout/Main';
+import { ContentView } from './@core/framework/Views/Content';
 
 function App() {
+  const [value] = useState<'principal' | 'room'>('principal')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Main>
+        <ContentView value={value} />
+      </Main>
+    </>
   );
 }
 
 export default App;
+
+
