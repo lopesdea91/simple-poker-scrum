@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './@core/assets/css/App.scss';
 
 import { Header } from './@core/presentation/layout/Header';
 import { Main } from './@core/presentation/layout/Main';
-import { ContentView } from './@core/framework/Views/Content';
+import { ContentView } from './@core/framework/views/content';
+import { useInitHook } from './@core/framework/hooks.ts/init';
 
 function App() {
-  const [value] = useState<'principal' | 'room'>('principal')
+
+  useInitHook()
 
   return (
     <>
       <Header />
       <Main>
-        <ContentView value={value} />
+        <ContentView />
       </Main>
     </>
   );

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-export const RoomView = () => {
+export const RoomView: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   return (
-    <div>RoomView</div>
+    <div {...props}>RoomView</div>
   )
 }

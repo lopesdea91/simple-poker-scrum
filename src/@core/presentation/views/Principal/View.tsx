@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { RoomsCreated } from './_components/RoomsCreated'
 import { Rooms } from './_components/Rooms'
 import { Users } from './_components/Users'
+import { useAppStore } from 'src/@core/framework/store/appStore'
 
-export const PrincipalView = () => {
+export const PrincipalView: FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
+  const appStore = useAppStore()
+
   return (
-    <div className='sm:flex sm:gap-2'>
-      <div className='shadow-md sm:flex-[2.5]'>
+    <div className='md:h-full md:flex md:gap-2' {...props}>
+      <div className='md:overflow-y-auto md:flex-[2.5]'>
         <RoomsCreated />
         <Rooms />
       </div>
-      <div className='shadow-md sm:flex-1'>
-        <Users />
+
+      <div className='md:overflow-y-auto hidden md:block border-l-[1px] pl-2 md:flex-1'>
+        <Users users={appStore.principal.users} />
       </div>
     </div>
   )

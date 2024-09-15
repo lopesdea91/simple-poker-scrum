@@ -2,6 +2,6 @@ import React, { FC, ReactNode } from 'react'
 
 export const Main: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className='p-2 mx-auto w-full max-w-screen-md'>{children}</div>
+    <main className='md:flex-1 md:overflow-hidden p-2 md:mx-auto md:w-full md:max-w-screen-md'>{children}</main>
   )
 }
