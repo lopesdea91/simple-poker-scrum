@@ -79,6 +79,4 @@ const Geteway = (): IGeteway => {
   };
 };
 
-const geteway = Geteway();
-
-export default geteway;
+export const geteway = Geteway();

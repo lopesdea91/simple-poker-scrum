@@ -28,7 +28,7 @@ const Room: FC = () => {
       cn(
         'px-3 py-5 border-[1px]',
         'border-gray-200 rounded-md shadow-md',
-        'duration-200 hover:border-gray-400 hover:shadow-lg hover:text-gray-800 hover:font-normal'
+        'duration-150 hover:border-gray-400 hover:shadow-lg hover:text-gray-800 hover:font-normal'
       )
     }
       onClick={() => { }}

@@ -33,3 +33,8 @@
 [data-animate="animate-content"] {
   animation: 0.3s contentFaceId forwards;
 }
+
+
+button[disabled] {
+  @apply disabled:pointer-events-none disabled:opacity-50 
+}

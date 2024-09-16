@@ -2,7 +2,7 @@ import { IUser } from "src/@core/domain/User";
 import { IGeteway } from "src/@core/infra/gateway/types";
 import { UserParseData } from "src/@core/utils/userParseData";
 
-export const UserListService = (geteway: IGeteway) => (callback: (room: IUser[]) => void) => {
+export const GetUserService = (geteway: IGeteway) => async (callback: (room: IUser[]) => void) => {
   geteway.setCollection("users");
 
   return geteway.syncList((docs) => {
