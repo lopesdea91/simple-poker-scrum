@@ -29,7 +29,7 @@ export const RoomsCreated: FC<{ rooms: IRoom[], isLogged: boolean }> = ({ rooms,
       <SectionTitle>Minhas salas:</SectionTitle>
 
       <div className='grid grid-cols-2 gap-3 p-2 mb-2'>
-        {appStore.loading || !rooms.length
+        {appStore.loading
           ? (
             <>
               <RoomSkeleton />
