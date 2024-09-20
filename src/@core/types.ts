@@ -7,7 +7,7 @@ export type IAppStoreAuth = IUser | null
 
 export type IAppStorePrincipal = {
     users: IUser[]
-    myRooms: IRoom[]
+    rooms: IRoom[]
 }
 export interface IAppStoreData {
     view: IAppView

@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 
 export const Main: FC<{ children: ReactNode }> = ({ children }) => {
   return (

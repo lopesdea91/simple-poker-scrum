@@ -2,8 +2,9 @@ import { where } from "firebase/firestore";
 import { IUser } from "src/@core/domain/User";
 import { IGeteway } from "src/@core/infra/gateway/types";
 import { UserParseData } from "src/@core/utils/userParseData";
+import dayjs from "dayjs";
 
-type IPayload = Omit<IUser, 'id' | 'online'> & {}
+type IPayload = Omit<IUser, 'id' | 'online' | 'updated_at'> & {}
 
 export const CreateUserService = (geteway: IGeteway) => async (payload: IPayload) => {
   geteway.setCollection("users");
@@ -13,6 +14,7 @@ export const CreateUserService = (geteway: IGeteway) => async (payload: IPayload
     ...payload,
     id: '',
     online: true,
+    updated_at: dayjs().unix()
   }
 
   /** CREATE */

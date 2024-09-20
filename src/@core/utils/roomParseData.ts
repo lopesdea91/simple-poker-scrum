@@ -17,6 +17,7 @@ export const RoomParseData = (payload: DocumentData): IRoom | null => {
     timestamp: data.timestamp,
     players: data.players,
     ownerId: data.ownerId,
+    // ownerName: data.ownerName,
     // playersPending: data.playersPending,
     // playersVisiting: data.playersVisiting,
     // userPlayersIds: data.userPlayersIds,

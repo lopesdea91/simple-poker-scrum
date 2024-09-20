@@ -15,7 +15,8 @@ export interface IRoom {
   players: IRoomPlayerGame[];       // usuários jogando
   roomLogs: string[];
   ownerId: string;                  // usuário criados da sala
-  timestamp: number
+  // ownerName: string;                // usuário criados da sala
+  timestamp: number                 // ulitma interação
   // playersPending: IRoomPlayer[];    // usuários esperando para entrar na sala
   // playersVisiting: IRoomPlayer[];   // usuários já disponivel na sala
   // userPlayersIds: string[];         // usuários com acesso a sala

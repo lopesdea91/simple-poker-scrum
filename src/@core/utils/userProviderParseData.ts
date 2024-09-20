@@ -5,6 +5,6 @@ export const UserProviderParseData = (payload: UserCredential['user']): IUserPro
   return {
     uid: payload.uid,
     displayName: payload.displayName ?? '',
-    photoURL: payload.photoURL ?? '',
+    photoURL: payload.photoURL ?? ''
   };
 };

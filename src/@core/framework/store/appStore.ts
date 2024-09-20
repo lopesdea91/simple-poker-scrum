@@ -7,7 +7,7 @@ const appDataInitial: IAppStoreData = {
   loading: true,
   auth: null,
   principal: {
-    myRooms: [],
+    rooms: [],
     users: []
   }
 }
