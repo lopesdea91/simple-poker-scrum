@@ -1,3 +1,4 @@
+import { Unsubscribe } from "firebase/auth";
 import { IGeteway } from "./types";
 import {
   DocumentData,
@@ -66,7 +67,8 @@ const Geteway = (): IGeteway => {
     },
     syncList: (callback) => {
       const roomdRef = collection(db, collectionName);
-      return onSnapshot(roomdRef, (querySnapshot) => {
+
+      const unsubscribe = onSnapshot(roomdRef, (querySnapshot) => {
         let docs: DocumentData[] = [];
 
         querySnapshot.forEach((doc) => {
@@ -75,6 +77,8 @@ const Geteway = (): IGeteway => {
 
         callback(docs);
       });
+
+      return unsubscribe
     },
   };
 };

@@ -1,10 +1,11 @@
 import * as React from "react"
 
 import { cn } from "src/@core/framework/lib/utils"
- 
+
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
- 
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+}
+
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
@@ -21,5 +22,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 )
 Input.displayName = "Input"
- 
-export { Input }
+
+const InputControl: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, className, ...props }) => {
+  return (
+    <div className={cn("flex flex-col gap-2 mb-3", className)} {...props}>{children}</div>
+  )
+}
+
+export { Input, InputControl }

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { DocumentData, where } from "firebase/firestore";
 
 import { IGeteway } from "src/@core/infra/gateway/types";
@@ -13,5 +14,9 @@ export const MakeUserOfflineService = (geteway: IGeteway) => async (uid: string)
   const data = UserParseData(doc)
 
   /** SET KEY ONLINE=FALSE */
-  geteway.put(data!.id, { ...data, online: false })
+  geteway.put(data!.id, {
+    ...data,
+    online: false,
+    updated_at: dayjs().unix()
+  })
 }

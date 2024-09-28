@@ -5,7 +5,7 @@ import { UserParseData } from "src/@core/utils/userParseData";
 export const GetUserService = (geteway: IGeteway) => async (callback: (room: IUser[]) => void) => {
   geteway.setCollection("users");
 
-  return geteway.syncList((docs) => {
+  return await geteway.syncList((docs) => {
     const usersOnline: IUser[] = []
     const usersOffOnline: IUser[] = []
 

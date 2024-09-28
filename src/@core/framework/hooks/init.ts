@@ -1,15 +1,14 @@
 import { useEffect, useRef } from "react"
 
-import { authStateWithGoogle } from "src/@core/framework/lib/firebase"
+import { authStateWithGoogle, signOutWithGoogle } from "src/@core/framework/lib/firebase"
 import { useAppStore } from "src/@core/framework/store/appStore"
 import { geteway } from "src/@core/infra/gateway"
 import { useMemory } from "src/@core/infra/memory"
 import { memoryLocal } from "src/@core/infra/memory/memoryLocal"
-import { GetUserService } from "src/@core/services/GetUserService"
 import { GetUserByUIDService } from "src/@core/services/GetUserByUIDService"
 import { MakeUserOfflineService } from "src/@core/services/MakeUserOfflineService"
-import { GetRoomService } from "src/@core/services/GetRoomService"
 import { MakeUserOnlineService } from "src/@core/services/MakeUserOnlineService"
+import { sleep } from "src/@core/utils/sleep"
 
 export const useInitHook = () => {
   const isMounted = useRef(false)
@@ -22,7 +21,7 @@ export const useInitHook = () => {
   const handler = async () => {
     appStore.setLoading(true)
 
-    await new Promise((res) => setTimeout(res, 1000))
+    await sleep(1000)
 
     await authStateWithGoogle(async (userGoogle) => {
       try {
@@ -40,24 +39,22 @@ export const useInitHook = () => {
 
         const currentUser = await GetUserByUIDService(geteway)(dataLocal.uid)
 
+        if (!currentUser) {
+          memory.delete()
+          await signOutWithGoogle()
+          throw new Error('unauthorized')
+        }
+
         await MakeUserOnlineService(geteway)(currentUser!.uid)
 
         appStore.setAuth(currentUser!)
 
       } catch (error) {
-        // console.log('... authStateWithGoogle error', (error as Error));
+        // console.log(error)
         // console.log('... authStateWithGoogle error', (error as Error).message);
         appStore.setAuth(null)
       }
     });
-
-    await GetUserService(geteway)((users) => {
-      appStore.setPrincipal({ users })
-    })
-
-    await GetRoomService(geteway)((rooms) => {
-      appStore.setPrincipal({ rooms })
-    })
 
     appStore.setLoading(false)
   }

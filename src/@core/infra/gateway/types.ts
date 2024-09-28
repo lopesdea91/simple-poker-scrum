@@ -1,3 +1,4 @@
+import { Unsubscribe } from "firebase/auth";
 import { DocumentData } from "firebase/firestore";
 
 export interface IGeteway {
@@ -9,5 +10,5 @@ export interface IGeteway {
   delete: (id: string) => Promise<void>;
   exist: (key: string, value: string) => Promise<boolean>;
   syncId: (id: string, callback: (doc: DocumentData) => void) => () => void;
-  syncList: (callback: (doc: DocumentData[]) => void) => () => void;
+  syncList: (callback: (doc: DocumentData[]) => void) => Function;
 }

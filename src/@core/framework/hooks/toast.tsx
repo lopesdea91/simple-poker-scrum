@@ -7,7 +7,7 @@ export const useToast = () => {
   const toastSuccess = (message: string) => {
     toast.success(message, {
       position: 'top-center',
-      duration: 1250,
+      duration: 1750,
     })
   }
   const toastError = (error: unknown) => {

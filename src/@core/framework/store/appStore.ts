@@ -3,9 +3,10 @@ import { create } from 'zustand'
 import { IAppStore, IAppStoreData } from 'src/@core/types'
 
 const appDataInitial: IAppStoreData = {
-  view: 'principal',
   loading: true,
+  disabled: false,
   auth: null,
+  view: 'principal',
   principal: {
     rooms: [],
     users: []
@@ -22,6 +23,9 @@ export const useAppStore = create<IAppStore>()((set) => ({
   },
   setLoading: (loading) => {
     set(store => ({ ...store, loading }))
+  },
+  setDisabled: (disabled) => {
+    set(store => ({ ...store, disabled }))
   },
   setPrincipal: (principal) => {
     set(store => ({

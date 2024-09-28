@@ -7,7 +7,7 @@ export const RoomParseData = (payload: DocumentData): IRoom | null => {
   if (!data) return null;
 
   return {
-    id: data.id,
+    id: payload.id,
     //  editaveis
     name: data.name,
     //  fixos

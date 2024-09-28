@@ -1,33 +1,48 @@
 import React, { FC } from 'react'
+
 import { IRoom } from 'src/@core/domain/Room'
 import { cn } from 'src/@core/framework/lib/utils'
 import { useAppStore } from 'src/@core/framework/store/appStore'
+import { useRoomsState } from 'src/@core/framework/store/viewRoomsStore'
 import { SectionTitle } from 'src/@core/presentation/ui/SectionTitle'
 import { RoomSkeleton } from 'src/@core/presentation/ui_shared/Skeleton'
 
-export const Rooms: FC<{ rooms: IRoom[], isLogged: boolean }> = ({ rooms, isLogged }) => {
+import { useRoomInit } from './Rooms.hooks'
+
+export const Rooms: FC = () => {
   const appStore = useAppStore()
+  const roomsState = useRoomsState()
+
+  const rooms = appStore.principal.rooms
+  const isLogged = !!appStore.auth?.id
 
   const title = isLogged ? 'Outras salas' : 'Salas'
 
+  useRoomInit()
+
   return (
-    <section className='flex-1'>
+    <section className='p-2 flex-1'>
       <SectionTitle>{title}:</SectionTitle>
 
       <RoomWrapper>
-        {appStore.loading || !rooms.length
-          ? (
-            <>
-              <RoomSkeleton />
-              <RoomSkeleton />
-              <RoomSkeleton />
-              <RoomSkeleton />
-            </>
-          ) : (
-            rooms.map(room =>
-              <Room key={room.id} {...room} />
-            )
-          )}
+        {roomsState.loading && (
+          <>
+            <RoomSkeleton />
+            <RoomSkeleton />
+            <RoomSkeleton />
+            <RoomSkeleton />
+          </>
+        )}
+
+        {!roomsState.loading && !!rooms.length && (
+          <>
+            {rooms.map(room => <Room key={room.id} {...room} />)}
+          </>
+        )}
+
+        {!roomsState.loading && rooms.length === 0 && (
+          <span className='text-xs text-gray-600'>Nenhuma sala cadastrada!</span>
+        )}
       </RoomWrapper>
     </section >
   )
@@ -39,7 +54,7 @@ const RoomWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = ({ children }) => 
 const Room: FC<IRoom> = ({ name, ownerId }) => {
   const appStore = useAppStore()
 
-  const ownerName = appStore.principal.users.find(user => user.id === ownerId)!.displayName
+  const ownerName = appStore.principal.users.find(user => user.id === ownerId)?.displayName
 
   return (
     <button

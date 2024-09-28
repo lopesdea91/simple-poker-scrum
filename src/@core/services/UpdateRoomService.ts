@@ -15,13 +15,15 @@ export const UpdateRoomService = (geteway: IGeteway) => async (payload: IPayload
     ...payload,
     timestamp: dayjs().unix()
   }
+  
 
   /** UPDATE ID */
   const [currentDoc] = (
-    await geteway.get<IRoom[]>(where('name', '==', body.name))
+    await geteway.get<IRoom[]>(where('id', '==', body.id))
   ).map(RoomParseData)
 
-  geteway.put(currentDoc!.id, { ...payload, id: currentDoc!.id });
+  await geteway.put(currentDoc!.id, { ...body });
+
 
   /** RETURN PAYLOAD WITH FULL DATA */
   return currentDoc

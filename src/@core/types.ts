@@ -12,13 +12,15 @@ export type IAppStorePrincipal = {
 export interface IAppStoreData {
     view: IAppView
     loading: boolean
+    disabled: boolean
     auth: IAppStoreAuth
     principal: IAppStorePrincipal
 }
 export interface IAppStoreMethods {
-    setView: (view: IAppView) => void
     setAuth: (view: IAppStoreAuth) => void
-    setLoading: (loading: boolean) => void
+    setLoading: (value: boolean) => void
+    setDisabled: (value: boolean) => void
+    setView: (view: IAppView) => void
     setPrincipal: (view: Partial<IAppStorePrincipal>) => void
 }
 export interface IAppStore extends IAppStoreData, IAppStoreMethods {

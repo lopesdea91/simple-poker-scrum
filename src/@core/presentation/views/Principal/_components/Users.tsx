@@ -1,32 +1,41 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC } from 'react'
 
 import { IUser } from 'src/@core/domain/User'
-import { useAppStore } from 'src/@core/framework/store/appStore'
 import { cn } from 'src/@core/framework/lib/utils'
+import { useAppStore } from 'src/@core/framework/store/appStore'
+import { useUsersState } from 'src/@core/framework/store/viewUsersStore'
 import { SectionTitle } from 'src/@core/presentation/ui/SectionTitle'
 import { UserBabe } from 'src/@core/presentation/ui_base/UserBase'
 import { UserSkeleton } from 'src/@core/presentation/ui_shared/Skeleton'
 
-export const Users: FC<{ users: IUser[] }> = ({ users }) => {
+import { useUsersInit } from './Users.hooks'
+
+export const Users: FC = () => {
   const appStore = useAppStore()
+  const usersState = useUsersState()
+
+  const users = appStore.principal.users
+
+  useUsersInit()
+
   return (
     <div className='p-2'>
       <SectionTitle>Usuários:</SectionTitle>
 
       <UserWrapper>
-        {appStore.loading && (<>
+        {usersState.loading && (<>
           <UserSkeleton />
           <UserSkeleton />
           <UserSkeleton />
           <UserSkeleton />
         </>)}
 
-        {!appStore.loading &&
+        {!usersState.loading &&
           users.map(user => (
             <User key={user.uid} {...user} />
           ))}
 
-        {!appStore.loading && users.length === 0 && (
+        {!usersState.loading && users.length === 0 && (
           <span className='text-xs text-gray-600'>Nenhum usuário cadastrado!</span>
         )}
       </UserWrapper>
@@ -40,12 +49,14 @@ const UserWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = ({ children }) => 
 
 const User: FC<IUser> = ({ uid, id, displayName, photoURL, online, updated_at }) => {
   return (
-    <UserBabe.Root>
+    <UserBabe.Root className={cn({
+      'opacity-50 text-gray-400': !online
+    })}>
       <UserBabe.Figure
         title={'Olá, eu sou ' + displayName}
         className={cn({
           'border-green-400': online,
-          'border-gray-400 opacity-50': !online,
+          'border-gray-400': !online,
         })}
       >
         <img src={photoURL} alt={'User ' + displayName} />
@@ -61,7 +72,9 @@ const User: FC<IUser> = ({ uid, id, displayName, photoURL, online, updated_at })
         {displayName}
       </span>
 
-      {!online && <UserBabe.lastLogin {...{ updated_at }} />}
+      {online
+        ? <UserBabe.status />
+        : <UserBabe.lastLogin {...{ updated_at }} />}
     </UserBabe.Root>
   )
 }
